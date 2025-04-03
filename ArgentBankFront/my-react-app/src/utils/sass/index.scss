@@ -1,0 +1,14 @@
+@use "../../components/footer/footer.scoped.scss";
+@use "../../components/header/header.scoped.scss";
+
+* {
+    margin: 0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    color: #2c3e50;
+}
