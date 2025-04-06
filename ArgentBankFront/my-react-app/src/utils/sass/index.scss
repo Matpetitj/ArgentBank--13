@@ -1,14 +1,23 @@
 @use "../../components/footer/footer.scoped.scss";
 @use "../../components/header/header.scoped.scss";
+@use "../../pages/SignIn/signin.scoped.scss";
 
 * {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html, body {
+#root {
+    height: 100%;
+}
+
+body {
     margin: 0;
     padding: 0;
     border: 0;
     font-family: Avenir, Helvetica, Arial, sans-serif;
     color: #2c3e50;
+    width: 100%;
+    height: 100%;
 }
