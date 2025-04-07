@@ -1,11 +1,11 @@
 import "./welcome.scoped.scss"
 
-function Welcoming(){
+function Welcoming({onClick}){
     return (
         <>
             <div className="welcomeUser">
-                <h1>Welcome back <br /> Tony Jarvis</h1>
-                <button className="userEditButton">Edit Name</button>
+                <h1>Welcome back <br /> Tony Jarvis!</h1>
+                <button className="editButton" onClick={onClick}>Edit Name</button>
             </div>
         </>
     )

@@ -7,6 +7,7 @@
   width: 100%;
   padding: 2rem 0;
   background-color: white;
+  max-height: 100px;
 }
 
 #nav {
@@ -27,6 +28,13 @@
   height: 100%;
   object-fit: contain;
 }
+#nav .headerProfil {
+  display: flex;
+}
+#nav .headerProfil .headerConnected {
+  display: flex;
+  gap: 10px;
+}
 #nav .headerProfil .headerSignIn {
   color: #2c3e50;
   font-weight: bold;
@@ -38,6 +46,72 @@
 #nav .headerProfil .headerSignIn .signInIcon {
   width: 20px;
   height: 20px;
+}
+
+.signIn {
+  background-color: #12002b;
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 65px - 100px);
+}
+.signIn .signInFormContainer {
+  background-color: white;
+  height: 360px;
+  width: 300px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.signIn .signInFormContainer .signInIcon {
+  width: 20px;
+  height: 20px;
+}
+.signIn .signInFormContainer .signInForm {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+  padding: 0px 35px;
+  gap: 10px;
+}
+.signIn .signInFormContainer .signInForm .signInInputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.signIn .signInFormContainer .signInForm .signInInputContainer label {
+  font-weight: bold;
+}
+.signIn .signInFormContainer .signInForm .signInInputContainer .signInInput {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #E8F0FE;
+  border: 0.5px solid #000;
+  border-radius: 1px;
+  font-size: 1.2rem;
+  padding: 5px;
+}
+.signIn .signInFormContainer .signInForm .signInInputRemember .signInInput {
+  margin-right: 5px;
+}
+.signIn .signInFormContainer .signInForm .signInButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 37px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 15px;
+  border: 0;
+  background-color: #00bc77;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 * {

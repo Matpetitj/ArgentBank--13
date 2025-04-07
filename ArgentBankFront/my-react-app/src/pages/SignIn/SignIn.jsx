@@ -23,6 +23,7 @@ function SignIn(){
                             id="username"
                             // value={userName}
                             // onChange={}
+                            required={true}
                             />
                         </div>
                         <div className="signInInputContainer">
@@ -32,6 +33,7 @@ function SignIn(){
                             id="password"
                             // value={userPassword}
                             // onChange={}
+                            required={true}
                             />
                         </div>
                         <div className="signInInputRemember">
