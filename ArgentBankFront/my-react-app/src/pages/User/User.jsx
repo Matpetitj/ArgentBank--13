@@ -8,17 +8,17 @@ import { useState } from "react";
 
 function User(){
 
-const [isActive, setIsActive] = useState(false);
+const [isOpen, setIsOpen] = useState(false);
 
     return (
         <>
             <main className="user">
-                {isActive ? (
+                {isOpen ? (
                     <EditUser firstname="firstName" lastname="lastName"
-                    onClick={() => setIsActive(!isActive)}/>   
+                    onClick={() => setIsOpen(!isOpen)}/>   
                 ) : (
                     <Welcome firstname="firstName" lastname="lastName"
-                    onClick={() => setIsActive(!isActive)}/>
+                    onClick={() => setIsOpen(!isOpen)}/>
                 )}
                 <BankAccount />
             </main>
