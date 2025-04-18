@@ -6,6 +6,7 @@ import { store } from './Redux/store.js';
 import Home from "./pages/Home/home.jsx";
 import SignIn from "./pages/SignIn/SignIn.jsx";
 import User from "./pages/User/User.jsx";
+import ProtectedRoute from "./components/protectedRoute/protectedRoute.jsx"
 
 import Header from "./components/header/header.jsx";
 import Footer from "./components/footer/footer.jsx"
@@ -20,7 +21,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/login" element={<SignIn/>}/>
-            <Route path="/user" element={<User/>}/>
+            <Route path="/user" element={
+                <ProtectedRoute>
+                  <User/>
+                </ProtectedRoute>
+              }
+            />
           </Routes>
           <Footer />
       </Provider>

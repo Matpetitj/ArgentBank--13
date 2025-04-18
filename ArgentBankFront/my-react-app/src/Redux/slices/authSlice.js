@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  token: null,        // Stocke le token JWT reçu après le login
+  token: null,        // Stocke le token reçu après le login
   user: null,         // Contiendra les infos comme firstName, lastName, email
-  isLogged: false     // Un booléen pour savoir si l’utilisateur est connecté
+  isLogged: false     // Un booléen utilisateur connecté ?
 };
 
 const authSlice = createSlice({

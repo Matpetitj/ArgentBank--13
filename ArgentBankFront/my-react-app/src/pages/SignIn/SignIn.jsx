@@ -6,20 +6,27 @@ import { useState } from "react"
 import { useNavigate } from "react-router";
 import { loginUser } from "../../services/APIService"
 
+import { useDispatch } from "react-redux";
+import { setToken, setUser } from "../../Redux/slices/authSlice"; 
+import { getUserProfile } from "../../services/APIService";
+
 function SignIn(){
     // états pour l'email, le mot de passe et les erreurs
     const [userName, setUserName] = useState("");
     const [userPassword, setUserPassword] = useState("");
     const [error, setError] = useState("");
     const [rememberMe, setRememberMe] = useState(false);
+
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     // Gérer l'envoi du formulaire
     const handleSubmit = async (event) =>{
         event.preventDefault(); // Empêcher le rechargement de la page
 
+        // Règle regex
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
         if(!emailRegex.test(userName)){
             setError("Format d'email invalide");
             return;
@@ -27,16 +34,18 @@ function SignIn(){
 
         try {
             const token = await loginUser(userName, userPassword); // Appeler la fonction loginUser
+            dispatch(setToken(token)) // stocke le token dans Redux
             console.log("Connexion réussie, token :", token);
-
             // Si rememberMe est coché, on peut stocker le token ou une autre info dans le localStorage
             if(rememberMe) {
                 localStorage.setItem("userToken", token);
             }
-
+            // récupère le profil utilisateur avec le token
+            const userData = await getUserProfile(token);
+            // stocke les infos utilisateur dans Redux
+            dispatch(setUser(userData));
             // réinitilise les erreurs
-            setError("")
-
+            setError("");
             navigate("/user"); //redirige l'utilisateur si connexion réussie
 
         } catch (err){
