@@ -39,6 +39,8 @@ function SignIn(){
             // Si rememberMe est coché, on peut stocker le token ou une autre info dans le localStorage
             if(rememberMe) {
                 localStorage.setItem("userToken", token);
+            } else {
+                sessionStorage.setItem("userToken", token);
             }
             // récupère le profil utilisateur avec le token
             const userData = await getUserProfile(token);
@@ -47,7 +49,6 @@ function SignIn(){
             // réinitilise les erreurs
             setError("");
             navigate("/user"); //redirige l'utilisateur si connexion réussie
-
         } catch (err){
             console.error("Erreur lors de la connexion :", err)
             setError("Identifiants incorrrects"); // affiche un message d'erreur en cas d'écher de la connexion

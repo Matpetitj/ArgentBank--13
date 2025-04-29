@@ -2,14 +2,14 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
-  const isLogged = useSelector((state) => state.auth.isLogged);
+  const token = useSelector((state) => state.auth.token);
 
-  // Si l'utilisateur n'est pas connecté, on le redirige vers /login
-  if (!isLogged) {
+  if (!token) {
+    // Pas connecté, on redirige vers /login
     return <Navigate to="/login" replace />;
   }
 
-  // Sinon on affiche la page demandée
+  // Connecté, on autorise l'accès
   return children;
 }
 
