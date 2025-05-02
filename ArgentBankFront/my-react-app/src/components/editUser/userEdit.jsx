@@ -1,45 +1,58 @@
-import "./userEdit.scoped.scss";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserProfile } from "../../services/APIService";
+import { setUser } from "../../Redux/slices/authSlice";
 
-function UserEdit ({onClick}){
+import "./userEdit.scoped.scss"
+
+function UserEdit({ onClick }) {
+    const dispatch = useDispatch();
+    const token = useSelector((state) => state.auth.token);
+    const user = useSelector((state) => state.auth.user);
+
+    const [firstName, setFirstName] = useState(user?.firstName || "");
+    const [lastName, setLastName] = useState(user?.lastName || "");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const updatedUser = await updateUserProfile(token, firstName, lastName);
+            dispatch(setUser(updatedUser)); // Met à jour dans Redux
+            onClick(); // Ferme le formulaire
+        } catch (error) {
+            console.error("Erreur lors de la mise à jour :", error);
+        }
+    };
+
     return (
-        <>
-            <div className="userEdit">
-                <h1 className="userTitle">Welcome back</h1>
-                <form className="editForm">
-                    <div className="editFormInputContainer">
-                        <div className="editFormInput">
-                            <input className="editInput"
-                            id="userFirstname"
+        <div className="userEdit">
+            <h1 className="editTitle">Welcome back</h1>
+            <form className="editForm" onSubmit={handleSubmit}>
+                <div className="editFormInputContainer">
+                    <div className="editFormInput">
+                        <input
+                            className="editInput"
                             type="text"
-                            placeholder="prenom"
-                            // value={}
-                            // onChange={}
-                            required={true}
-                            />
-                            <input className="editInput"
-                            id="userLastname"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            required
+                        />
+                        <input
+                            className="editInput"
                             type="text"
-                            placeholder="nom"
-                            // value={}
-                            // onChange={}
-                            required={true}
-                            />
-                        </div>
-                        <div className="editButton">
-                            <button type="submit" className="editButton">
-                                Save
-                            </button>
-                            <button className="editButton"
-                            onClick={onClick}
-                            type="button">
-                                Cancel
-                            </button>
-                        </div>
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            required
+                        />
                     </div>
-                </form>
-            </div>
-        </>
-    )
+                    <div className="editButton">
+                        <button type="submit" className="editButton">Save</button>
+                        <button type="button" className="editButton" onClick={onClick}>Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    );
 }
 
 export default UserEdit;

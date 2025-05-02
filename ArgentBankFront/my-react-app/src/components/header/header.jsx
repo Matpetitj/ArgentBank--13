@@ -5,20 +5,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../Redux/slices/authSlice"; // importer l'action logout
+import { logout } from "../../Redux/slices/authSlice";
 
 function Header() {
     const token = useSelector((state) => state.auth.token);
+    const user = useSelector((state) => state.auth.user); // récupère les infos utilisateur
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // 1. Vide Redux
         dispatch(logout());
-        // 2. Supprime localStorage & sessionStorage
         localStorage.removeItem("userToken");
         sessionStorage.removeItem("userToken");
-        // 3. Redirige vers l'accueil
         navigate("/");
     };
 
@@ -34,10 +32,13 @@ function Header() {
                     <div className="headerConnected">
                         <Link className="headerSignIn" to="/user">
                             <FontAwesomeIcon className="signInIcon" icon={faCircleUser} />
-                            {/* Ici tu pourrais aussi afficher dynamiquement le prénom si tu veux */}
-                            Tony
+                            {user?.firstName || "Profil"} {/* Affiche le prénom ou un fallback */}
                         </Link>
-                        <button className="headerSignIn" onClick={handleLogout} style={{ background: "none", border: "none", cursor: "pointer" }}>
+                        <button
+                            className="headerSignIn"
+                            onClick={handleLogout}
+                            style={{ background: "none", border: "none", cursor: "pointer" }}
+                        >
                             <FontAwesomeIcon className="signInIcon" icon={faRightFromBracket} />
                             Sign Out
                         </button>

@@ -52,3 +52,29 @@ export async function getUserProfile(token) {
         throw error;
     }
 }
+
+export async function updateUserProfile(token, firstName, lastName) {
+    try {
+        const response = await fetch(`${BASE_URL}/user/profile`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                firstName,
+                lastName
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la mise à jour du profil');
+        }
+
+        const data = await response.json();
+        return data.body; // les nouvelles données renvoyées
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour du profil :", error);
+        throw error;
+    }
+}

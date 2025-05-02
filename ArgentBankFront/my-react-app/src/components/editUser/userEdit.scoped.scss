@@ -1,4 +1,53 @@
-.editForm {
+.userEdit {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    gap: 10px;
+    margin-bottom: 34px;
+
+    .editTitle {
+        color: #fff;
+    }
+
+    .editForm {
+        display: flex;
+        flex-direction: column;
+        
+        .editFormInputContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .editFormInput {
+                display: flex;
+                gap: 10px;
+
+                input {
+                    padding-left: 5px;
+                    width: 180px;
+                    height: 35px;
+                    border: 1px solid #00bc77;
+                    border-radius: 3px;
+                }
+            }
+
+            .editButton {
+                background: none;
+                display: flex;
+                gap: 10px;
+                padding: 0;
+    
+                button {
+                    color: #00bc77;
+                    background-color: #fff;
+                    border-radius: 3px;
+                    width: 120px;
+                    border: 2px solid;
+                    padding: 10px 0px 10px 0px;
+                }
+            }
+        }
+    }
 }
+
