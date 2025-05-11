@@ -1,0 +1,242 @@
+openapi: 3.0.0
+info:
+  title: Argent Bank API
+  version: 1.0.0
+
+paths:
+  /accounts:
+    get:
+      summary: Récupère les comptes bancaires de l'utilisateur connecté
+      tags:
+        - Accounts
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Liste des comptes de l'utilisateur
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accounts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: x8349
+                        name:
+                          type: string
+                          example: Argent Bank Checking
+                        balance:
+                          type: number
+                          example: 2082.79
+                        balanceType:
+                          type: string
+                          enum: [current, available]
+                          example: available
+        '401':
+          description: Non autorisé - Token invalide ou manquant
+        '404':
+          description: Aucun compte bancaire trouvé pour cet utilisateur
+          
+  /transactions/{accountId}:
+    get:
+      summary: Récupère les transactions d'un compte bancaire
+      tags:
+        - Transactions
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: L'identifiant du compte bancaire
+      responses:
+        '200':
+          description: Liste des transactions du compte
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        transactionId:
+                          type: string
+                          example: txn_5678
+                        date:
+                          type: string
+                          format: date
+                          example: "2024-03-15"
+                        description:
+                          type: string
+                          example: "Grocery Store"
+                        amount:
+                          type: number
+                          example: 50.50
+                        postBalance:
+                          type: number
+                          example: 2050.50
+        '401':
+          description: Non autorisé - Token invalide ou manquant
+        '404':
+          description: Aucune transaction sur ce compte
+
+  /transactions/transaction/{transactionId}:
+    get:
+      summary: Récupérer les données d'une transaction (type, catégorie, note)
+      tags:
+        - Transactions
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          schema:
+            type: string
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: txn_5678
+          description: L'identifiant de la transaction
+      responses:
+        '200':
+          description: Détails complets de la transaction
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactionId:
+                    type: string
+                    example: txn_5678
+                  date:
+                    type: string
+                    format: date
+                    example: "2024-03-15"
+                  description:
+                    type: string
+                    example: "Grocery Store"
+                  amount:
+                    type: number
+                    example: 50.50
+                  postBalance:
+                    type: number
+                    example: 2050.50
+                  type:
+                    type: string
+                    example: "Electronic"
+                  category:
+                    type: string
+                    example: "Shopping"
+                  note:
+                    type: string
+                    example: "Achat clavier mécanique"
+        '401':
+          description: Non autorisé - Token invalide ou manquant
+        '404':
+          description: Transaction introuvable
+
+    patch:
+      summary: Mise à jour de la catégorie et de la note d'une transaction
+      tags:
+        - Transactions
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          schema:
+            type: string
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: txn_5678
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: string
+                  example: Restaurant
+                note:
+                  type: string
+                  example: Dîner client
+      responses:
+        '200':
+          description: Transaction mise à jour avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactionId:
+                    type: string
+                    example: txn_5678
+                  date:
+                    type: string
+                    format: date
+                    example: "2024-03-15"
+                  description:
+                    type: string
+                    example: "Grocery Store"
+                  amount:
+                    type: number
+                    example: 50.50
+                  postBalance:
+                    type: number
+                    example: 2050.50
+                  type:
+                    type: string
+                    example: "Electronic"
+                  category:
+                    type: string
+                    example: "Restaurant"
+                  note:
+                    type: string
+                    example: "Dîner client"
+        '400':
+          description: Données de requête invalides
+        '401':
+          description: Non autorisé - Token invalide ou manquant
+        '404':
+          description: Transaction introuvable
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
