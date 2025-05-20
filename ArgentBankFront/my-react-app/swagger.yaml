@@ -48,6 +48,8 @@ paths:
           description: Non autorisé - Token invalide ou manquant
         '404':
           description: Aucun compte bancaire trouvé pour cet utilisateur
+        '500':
+          description: Erreur serveur
           
   /transactions/{accountId}:
     get:
@@ -102,6 +104,8 @@ paths:
           description: Non autorisé - Token invalide ou manquant
         '404':
           description: Aucune transaction sur ce compte
+        '500':
+          description: Erreur serveur
 
   /transactions/transaction/{transactionId}:
     get:
@@ -161,6 +165,8 @@ paths:
           description: Non autorisé - Token invalide ou manquant
         '404':
           description: Transaction introuvable
+        '500':
+          description: Erreur serveur
 
     patch:
       summary: Mise à jour de la catégorie et de la note d'une transaction
@@ -233,6 +239,8 @@ paths:
           description: Non autorisé - Token invalide ou manquant
         '404':
           description: Transaction introuvable
+        '500':
+          description: Erreur serveur
 
 components:
   securitySchemes:
