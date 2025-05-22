@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken, setUser } from "./Redux/slices/authSlice"; // ✅ Ajouté setUser
-import { getUserProfile } from "./services/APIService"; // ✅ Import de l'API
+import { setToken, setUser } from "./Redux/slices/authSlice"; // Ajouté setUser
+import { getUserProfile } from "./services/APIService"; // Import de l'API
 
 import { Routes, Route, useNavigate } from "react-router-dom";
 
@@ -19,7 +19,7 @@ function App() {
   const navigate = useNavigate();
   const token = useSelector((state) => state.auth.token);
 
-  // 🔁 Récupération du token et du profil
+  // Récupération du token et du profil
   useEffect(() => {
     const storedToken =
       localStorage.getItem("userToken") ||
@@ -39,7 +39,7 @@ function App() {
     }
   }, [dispatch]);
 
-  // 🔁 Redirection si token change
+  // Redirection si token change
   useEffect(() => {
     if (token) {
       navigate("/user");
